@@ -6,8 +6,13 @@ app = FastAPI()
 def run_httpie():
     try:
         # Running `uv` with `httpie` inside Vercel
+#         result = subprocess.run(
+#     ["uv", "run", "--with", "httpie", "--", "http", "get", "https://httpbin.org/get?email=22f3002723@ds.study.iitm.ac.in"],
+#     capture_output=True,
+#     text=True
+# )
         result = subprocess.run(
-    ["uv", "run", "--with", "httpie", "--", "http", "get", "https://httpbin.org/get?email=22f3002723@ds.study.iitm.ac.in"],
+    ["http", "get", "https://httpbin.org/get?email=22f3002723@ds.study.iitm.ac.in"],
     capture_output=True,
     text=True
 )
