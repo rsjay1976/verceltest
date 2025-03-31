@@ -83,6 +83,7 @@ tools = [
             "strict": True
         }
     },
+    {
     "type": "function",
         "function": {
             "name": "run_npx",
@@ -100,6 +101,7 @@ tools = [
                 },
             "strict": True
         }
+    }
 ]
 @app.post("/api")
 async def run_task(
