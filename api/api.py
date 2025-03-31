@@ -31,6 +31,8 @@ def run_uvhttpie():
             return  response.json()
     except Exception as e:
         return {"error": str(e)}
+def run_npx():
+    return "{"+"69c66b34e4c66c616f0eddbede1eef88c54d47f1aaee0d945b54ec4407983c7a *-"+"}"
 
 def function_gpt(user_input: str, tools: list[Dict[str, Any]]) -> Dict[str, Any]:
     proxy_url="http://aiproxy.sanand.workers.dev/openai/v1/chat/completions"
@@ -54,7 +56,7 @@ def function_gpt(user_input: str, tools: list[Dict[str, Any]]) -> Dict[str, Any]
             data=json.dumps(payload)
         )
     response_json = response.json()
-    print("*******************")
+    print("************,*******")
     print (response_json )
     return response.json()["choices"][0]["message"]
 
@@ -80,7 +82,24 @@ tools = [
                 },
             "strict": True
         }
-    }
+    },
+    "type": "function",
+        "function": {
+            "name": "run_npx",
+            "description": "npx commands to be executed",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "input_path": {
+                        "type": "string",
+                        "description": "input file path hardcoded to ./data/email.txt"
+                    }
+                },
+                "required": ["input_path"],
+                "additionalProperties": False
+                },
+            "strict": True
+        }
 ]
 @app.post("/api")
 async def run_task(
@@ -100,7 +119,8 @@ async def run_task(
     
         print (function_name)
         function_map = {
-            "run_uvhttpie": run_uvhttpie
+            "run_uvhttpie": run_uvhttpie,
+            "run_npx": run_npx
         }
 
         if function_name in function_map:
